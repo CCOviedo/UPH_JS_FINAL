@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>JS Intermedio Ejercicio</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+    </head>
+    <body class="vscode-light">
+        <h1 id="js-intermedio-ejercicio">JS Intermedio Ejercicio</h1>
+<ul>
+<li><a href="#js-intermedio-ejercicio">JS Intermedio Ejercicio</a>
+<ul>
+<li><a href="#ejercicios">Ejercicios</a>
+<ul>
+<li><a href="#s%c3%b3lo-vocales">Sólo vocales</a></li>
+<li><a href="#los-n%c3%bameros-de-la-loter%c3%ada">Los números de la lotería</a></li>
+<li><a href="#contexto">Contexto</a></li>
+<li><a href="#callbacks-cocido-maker">Callbacks: Cocido maker</a></li>
+</ul>
+</li>
+<li><a href="#pr%c3%a1cticas">Prácticas</a>
+<ul>
+<li><a href="#calculadora-con-clases">Calculadora con clases</a>
+<ul>
+<li><a href="#paso-1">Paso 1</a></li>
+<li><a href="#paso-2">Paso 2</a></li>
+</ul>
+</li>
+<li><a href="#informaci%c3%b3n-en-el-zoo">Información en el zoo</a>
+<ul>
+<li><a href="#calcular-la-entrada">Calcular la entrada</a></li>
+<li><a href="#horario">Horario</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="ejercicios">Ejercicios</h2>
+<h3 id="s%c3%b3lo-vocales">Sólo vocales</h3>
+<pre><code class="language-js"><div><span class="hljs-keyword">const</span> input = [<span class="hljs-string">'average'</span>, <span class="hljs-string">'exceptional'</span>, <span class="hljs-string">'amazing'</span>];
+<span class="hljs-keyword">const</span> vocales = [<span class="hljs-string">'a'</span>, <span class="hljs-string">'e'</span>, <span class="hljs-string">'i'</span>, <span class="hljs-string">'o'</span>, <span class="hljs-string">'u'</span>];
+
+<span class="hljs-keyword">const</span> output = input.map(<span class="hljs-function">(<span class="hljs-params">element</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> element.split(<span class="hljs-string">''</span>).filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">el</span>) </span>{
+    <span class="hljs-keyword">return</span> vowels.includes(el.toLowerCase());
+  }).join(<span class="hljs-string">''</span>);
+});
+
+<span class="hljs-built_in">console</span>.log(output); <span class="hljs-comment">// ["aeae", "eeioa", "aai"]</span>
+</div></code></pre>
+<h3 id="los-n%c3%bameros-de-la-loter%c3%ada">Los números de la lotería</h3>
+<pre><code class="language-js"><div><span class="hljs-keyword">const</span> input  = [<span class="hljs-number">30</span>, <span class="hljs-number">48</span>, <span class="hljs-number">11</span>, <span class="hljs-number">5</span>, <span class="hljs-number">32</span>];
+
+<span class="hljs-keyword">const</span> output = input.reduce(<span class="hljs-function">(<span class="hljs-params">acum, element, index, arr</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> stepString = acum + element;
+  <span class="hljs-keyword">if</span> (index !== arr.length - <span class="hljs-number">1</span> ) {
+    stepString += <span class="hljs-string">', '</span>
+  }
+  <span class="hljs-keyword">return</span> stepString;
+  
+},<span class="hljs-string">'Tus números de la suerte son: '</span>);
+
+<span class="hljs-built_in">console</span>.log(output);
+</div></code></pre>
+<h3 id="contexto">Contexto</h3>
+<pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">miFuncion</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"------------------"</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Se crea el contexto de ejecución y voy a ver que tiene this"</span>)
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Es el objeto window global"</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Voy a añadir una nueva propiedad a ver si se añade a Window"</span>);
+  <span class="hljs-keyword">this</span>.nuevaProp = <span class="hljs-string">"Esto es una nueva prop"</span>;
+}
+
+<span class="hljs-keyword">var</span> miObjeto = {
+  <span class="hljs-attr">prop1</span>: <span class="hljs-string">"Esta es la propiedad prop1 de miObjeto"</span>,
+  <span class="hljs-attr">metodo1</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dentro del objeto this vale: "</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);
+
+    <span class="hljs-keyword">var</span> funcInterna = (<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Dentro del método del objeto, si creamos una func this vale window. "</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Pero nosotros somos más listos y le hemos hecho el binding de this"</span>);
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>);
+    }).bind(<span class="hljs-keyword">this</span>);
+    funcInterna();
+  }
+}
+
+<span class="hljs-comment">// Llamo a la función</span>
+miFuncion();
+
+<span class="hljs-comment">// Compruebo si existe en window la nuevaProp</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"window.nuevaProp vale: %s"</span>, <span class="hljs-built_in">window</span>.nuevaProp);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"----------------------"</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Voy a ver si pasa lo mismo con un objeto"</span>);
+
+miObjeto.metodo1();
+</div></code></pre>
+<h3 id="callbacks-cocido-maker">Callbacks: Cocido maker</h3>
+<p>Queremos crear un script llamado cocidoMaker. Este script tendrá que preparar:</p>
+<ol>
+<li>El setup de los ingredientes.</li>
+<li>Cortar cada ingrediente</li>
+<li>Cocer cada ingrediente</li>
+<li>Informar de cada acción en cada paso</li>
+<li>Informar a la finalización del proceso completo</li>
+<li>Los ingredientes vienen dados en un array. Bon Appetit!</li>
+</ol>
+<pre><code class="language-js"><div><span class="hljs-keyword">let</span> totalIngredientes = <span class="hljs-number">0</span>;
+<span class="hljs-keyword">let</span> ingredienteActual = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">const</span> cocidoMaker = <span class="hljs-function">(<span class="hljs-params">ingredientes, callback</span>) =&gt;</span> {
+  callback(ingredientes, cortar);
+}
+
+<span class="hljs-keyword">const</span> ingredientesSetup = <span class="hljs-function">(<span class="hljs-params">ingredientes, callback</span>) =&gt;</span> {
+  totalIngredientes = ingredientes.length;
+
+  <span class="hljs-keyword">for</span> (ingrediente <span class="hljs-keyword">of</span> ingredientes) {
+    callback(ingrediente, cocer);
+  }
+}
+
+<span class="hljs-keyword">const</span> cortar = <span class="hljs-function">(<span class="hljs-params">ingrediente, callback</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Cortando ingrediente <span class="hljs-subst">${ingrediente}</span>`</span>);
+  callback(ingrediente, finalizar);
+}
+
+<span class="hljs-keyword">const</span> cocer = <span class="hljs-function">(<span class="hljs-params">ingrediente, callback</span>) =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Cociendo ingrediente <span class="hljs-subst">${ingrediente}</span>`</span>);
+  ingredienteActual++;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${ingredienteActual}</span> / <span class="hljs-subst">${totalIngredientes}</span>`</span>);
+
+  <span class="hljs-keyword">if</span> (ingredienteActual == totalIngredientes) {
+    callback();
+  }
+}
+
+<span class="hljs-keyword">const</span> finalizar = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'El codido está listo. ¡A disfrutar!'</span>);
+}
+
+<span class="hljs-keyword">const</span> ingredientes = [<span class="hljs-string">'Nabo'</span>, <span class="hljs-string">'Puerro'</span>, <span class="hljs-string">'Patatas'</span>, <span class="hljs-string">'Garbanzos'</span>, <span class="hljs-string">'Falda'</span>, <span class="hljs-string">'Gallina'</span>, <span class="hljs-string">'Chorizo'</span>];
+
+cocidoMaker(ingredientes, ingredientesSetup);
+</div></code></pre>
+<h2 id="pr%c3%a1cticas">Prácticas</h2>
+<h3 id="calculadora-con-clases">Calculadora con clases</h3>
+<h4 id="paso-1">Paso 1</h4>
+<p>Realiza una clase calculadora que tenga los siguientes métodos:</p>
+<ul>
+<li>Introducir valor</li>
+<li>Suma</li>
+<li>Resta</li>
+<li>División</li>
+<li>MulGplicación</li>
+<li>Potencia</li>
+<li>Limpiar</li>
+</ul>
+<p>Instancia la calculadora y realiza algunos cálculos desde la consola para comprobar que funciona correctamente. La calculadora deberá acumular los cálculos hasta que se limpie.</p>
+<h4 id="paso-2">Paso 2</h4>
+<p>Haciendo uso de la calculadora del ejercicio anterior, realiza dos nuevas calculadoras que hereden de la calculadora base:</p>
+<ul>
+<li><strong>Calculadora <em>Cutronga</em></strong>: Esta calculadora será invocada desde la consola, mostrará los resultados de las operaciones desde alertas de JS y pedirá los valores mediante prompts</li>
+<li><strong>Calculadora Visual</strong>: Esa calculadora al iniciarse pintará en el HTML botones con las acciones disponibles, un pequeño display con el resultado y un input para meter los valores.</li>
+</ul>
+<p>Recuerda que debes hacer que la herencia tenga sentido. Para ello ambas calculadoras usarán los métodos sumar, restar, dividir... etc de su padre. <strong>NO IMPLEMENTES TODOS</strong>.</p>
+<p><em>AYUDITA</em>: Quizá solo tengas que sobrescribir el constructor, la función pedir valor y pintar valor</p>
+<h3 id="informaci%c3%b3n-en-el-zoo">Información en el zoo</h3>
+<p>En <code>scripts/zoo.js</code> tenemos mucha información sobre un zoo, queremos obtener la siguiente información</p>
+<h4 id="calcular-la-entrada">Calcular la entrada</h4>
+<pre><code class="language-js"><div><span class="hljs-keyword">const</span> input = {};
+calculadorDeEntrada(input); <span class="hljs-comment">// 0</span>
+
+<span class="hljs-keyword">const</span> input = { <span class="hljs-string">'Adult'</span>: <span class="hljs-number">2</span>, <span class="hljs-string">'Child'</span>: <span class="hljs-number">3</span>, <span class="hljs-string">'Senior'</span>: <span class="hljs-number">1</span> };
+calculadorDeEntrada(input); <span class="hljs-comment">// 187.94</span>
+</div></code></pre>
+<h4 id="horario">Horario</h4>
+<p>Devuelve en un lenguaje coloquial el horario:</p>
+<pre><code class="language-js"><div>dameHorario();
+<span class="hljs-comment">/*
+{
+  'Tuesday': 'Open from 8am until 6pm',
+  'Wednesday': 'Open from 8am until 6pm',
+  'Thursday': 'Open from 10am until 8pm',
+  'Friday': 'Open from 10am until 8pm',
+  'Saturday': 'Open from 8am until 10pm',
+  'Sunday': 'Open from 8am until 8pm',
+  'Monday': 'CLOSED'
+};
+*/</span>
+</div></code></pre>
+<p><a href="https://github.com/gSchool/native-array-methods-exercises/blob/master/zoo/core.spec.js">Fuente y más ejercicios</a></p>
+
+    </body>
+    </html>

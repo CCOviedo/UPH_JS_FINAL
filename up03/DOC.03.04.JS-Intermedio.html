@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>JS Intermedio</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="js-intermedio">JS Intermedio</h1>
+<ul>
+<li><a href="#js-intermedio">JS Intermedio</a>
+<ul>
+<li><a href="#map-filter-reduce"><code>map</code>, <code>filter</code>, <code>reduce</code></a>
+<ul>
+<li><a href="#imperativo-vs-declarativo">Imperativo vs declarativo</a>
+<ul>
+<li><a href="#declarativo">Declarativo</a></li>
+</ul>
+</li>
+<li><a href="#map"><code>map</code></a></li>
+<li><a href="#filter"><code>filter</code></a></li>
+<li><a href="#reduce"><code>reduce</code></a></li>
+</ul>
+</li>
+<li><a href="#clases">Clases</a>
+<ul>
+<li><a href="#herencia">Herencia</a></li>
+<li><a href="#m%c3%a9todos-est%c3%a1ticos">Métodos estáticos</a></li>
+</ul>
+</li>
+<li><a href="#hosting">Hosting</a>
+<ul>
+<li><a href="#let--var">Let / var</a></li>
+</ul>
+</li>
+<li><a href="#scope-contexto-y-clousures">Scope, contexto y clousures</a>
+<ul>
+<li><a href="#scope">Scope</a></li>
+<li><a href="#contexto">Contexto</a></li>
+<li><a href="#clousures">Clousures</a>
+<ul>
+<li><a href="#module-pattern">Module pattern</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="map-filter-reduce"><code>map</code>, <code>filter</code>, <code>reduce</code></h2>
+<p><img src="file:////Users/felix/Documents/dev/upgrade-html-css/03. JS/assets/map-filter-reduce.png" alt="map, filter, reduce"></p>
+<h3 id="imperativo-vs-declarativo">Imperativo vs declarativo</h3>
+<p>#### Imperative</p>
+<pre><code class="language-js"><div><span class="hljs-comment">// Una forma imperativa de sumar un array de elementos (es6)</span>
+<span class="hljs-keyword">const</span> sum = <span class="hljs-function">(<span class="hljs-params">arr</span>) =&gt;</span> {
+  <span class="hljs-keyword">let</span> result = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) {
+    result += arr[i];
+  }  
+  <span class="hljs-keyword">return</span> result;
+};
+</div></code></pre>
+<p>El estilo imperativo al declarar algoritmos es la forma que hemos visto hasta ahora. Le dices <em>exactamente</em> al ordenador qué hacer instrucción por instrucción. No está mal, pero esto puede hacer que tu código se dispare en complejidad y requerir al programador que le toque revisarlo un esfuerzo extra en entender qué hace.</p>
+<h4 id="declarativo">Declarativo</h4>
+<pre><code class="language-js"><div><span class="hljs-comment">// calculate the sum of array elements</span>
+<span class="hljs-keyword">const</span> sum = <span class="hljs-function">(<span class="hljs-params">arr</span>) =&gt;</span> arr.reduce(<span class="hljs-function">(<span class="hljs-params">total, item</span>) =&gt;</span> total += item, <span class="hljs-number">0</span>);
+</div></code></pre>
+<p>Hemos reducido el anterior script en una única linea, además de ser más concisa, expresiva y fácil de mantener. <strong>Le decimos al ordenador lo que queremos pero no cómo lo tiene que hacer</strong>.</p>
+<h3 id="map"><code>map</code></h3>
+<p>La función <code>map</code> transforma cada elemento del array por <em>otra cosa</em> y devuelve por lo tanto un array con la misma longitud. Esa transformación sucede en la función que se le pasa como parámetro.</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];
+<span class="hljs-keyword">const</span> newArray = arr.map(<span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> i * <span class="hljs-number">10</span>);
+<span class="hljs-built_in">console</span>.log(newArray); <span class="hljs-comment">/// [10,20,30,40,50]</span>
+</div></code></pre>
+<h3 id="filter"><code>filter</code></h3>
+<p>La función <code>filter</code> (como su propio nombre indica) filtra un array, aplica la condición de filtrado que se le pasa por parámetro</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>];
+<span class="hljs-keyword">const</span> newArray = arr.filter(<span class="hljs-function"><span class="hljs-params">i</span> =&gt;</span> i%<span class="hljs-number">2</span> == <span class="hljs-number">0</span>);
+<span class="hljs-built_in">console</span>.log(newArray); <span class="hljs-comment">// [2,4]</span>
+</div></code></pre>
+<p>En el ejemplo anterior, se filtra el array para números pares.</p>
+<h3 id="reduce"><code>reduce</code></h3>
+<p>La función <code>reduce</code> (como su propio nombre indica) reduce / transforma un array en un único valor, este valor puede ser de cualquier tipo (un string, un objeto, otro array...).</p>
+<pre><code class="language-js"><div><span class="hljs-comment">// example</span>
+<span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+<span class="hljs-keyword">const</span> total = arr.reduce(<span class="hljs-function">(<span class="hljs-params">acc, item</span>) =&gt;</span> acc+= item, <span class="hljs-number">0</span>);
+<span class="hljs-built_in">console</span>.log(total); <span class="hljs-comment">// 15</span>
+</div></code></pre>
+<p>En el ejemplo anterior se suman todos los elementos del array, para ello se utiliza el acumulador para llevar la suma.</p>
+<ul>
+<li>El primer parámetro es una función <code>reduce</code> que recibe dos parámetros, el acumulador <code>acum</code> y el elemento actual de la iteración: <code>item</code>.</li>
+<li>El segundo parámetro es el valor inicial de acumulador, en este caso es <code>0</code>.</li>
+</ul>
+<h2 id="clases">Clases</h2>
+<p>Con la llegada de la nueva versión del estándar de JavaScript (ECMAScript 6 o ECMAScript 2015) la definición de una función como clase ha cambiado.</p>
+<p>ES6 aporta lo que es conocido como azúcar sintáctico, para declarar una clase como en la mayoría de los lenguajes de programación orientados a objetos.</p>
+<pre><code class="language-js"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Animal</span> </span>{
+  <span class="hljs-keyword">constructor</span>(nombre, sonido) {
+    <span class="hljs-keyword">this</span>.nombre = nombre;
+    <span class="hljs-keyword">this</span>.sonido = sonido;
+  }
+  emitirSonido() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'El '</span> + <span class="hljs-keyword">this</span>.nombre + <span class="hljs-string">' hace '</span> + <span class="hljs-keyword">this</span>.sonido);
+  }
+}
+
+<span class="hljs-keyword">let</span> miPerro = <span class="hljs-keyword">new</span> Animal(<span class="hljs-string">"Perro"</span>, <span class="hljs-string">"Guau!"</span>);
+<span class="hljs-keyword">let</span> miGato = <span class="hljs-keyword">new</span> Animal(<span class="hljs-string">"Gato"</span>, <span class="hljs-string">"Miau!"</span>);
+
+miPerro.emitirSonido(); <span class="hljs-comment">// El Perro hace Guau!</span>
+miGato.emitirSonido(); <span class="hljs-comment">// El Gato hace Miau!</span>
+</div></code></pre>
+<h3 id="herencia">Herencia</h3>
+<p>La herencia es específica de la programación orientada a objetos, donde una clase nueva se crea a partir de una clase existente.</p>
+<p>La herencia (a la que habitualmente se denomina subclase) proviene del hecho de que la subclase (la nueva clase creada) contiene las atributos y métodos de la clase primaria. La principal ventaja de la herencia es la capacidad para definir atributos y métodos nuevos para la subclase, que luego se aplican a los atributos y métodos heredados.</p>
+<p>Gracias a esta nueva sintaxis podemos realizar herencia de una manera más sencilla, ya que disponemos de extends para indicar que una clase hereda de otra. También podemos hacer uso de super para llamar al constructor de la clase heredada.</p>
+<p>Veamos un ejemplo con vehículos. Empezamos definiendo la clase padre:</p>
+<pre><code class="language-js"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Vehiculo</span> </span>{
+  <span class="hljs-keyword">constructor</span>(tipo, nombre, ruedas) {
+    <span class="hljs-keyword">this</span>.tipo = tipo;
+    <span class="hljs-keyword">this</span>.nombre = nombre;
+    <span class="hljs-keyword">this</span>.ruedas = ruedas
+  }
+  getRuedas() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.ruedas
+  }
+  arrancar() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Arrancando el "</span> + <span class="hljs-keyword">this</span>.nombre);
+  }
+  aparcar() {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"Aparcando el "</span> + <span class="hljs-keyword">this</span>.nombre);
+  }
+}
+</div></code></pre>
+<p>Si quisiéramos heredar de la clase Vehículo para hacer uso de sus métodos deberemos usar extends para heredarla y super para invocar a su constructor.</p>
+<p>De esta manera podremos hacer uso de los métodos del padre.</p>
+<pre><code class="language-js"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Coche</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Vehiculo</span> </span>{
+  <span class="hljs-keyword">constructor</span>(nombre) {
+    <span class="hljs-keyword">super</span>(<span class="hljs-string">'coche'</span>, nombre, <span class="hljs-number">4</span>);
+  }
+}
+<span class="hljs-keyword">var</span> beetle = <span class="hljs-keyword">new</span> Coche(<span class="hljs-string">'Volkswagen Beetle'</span>);
+beetle.getRuedas(); <span class="hljs-comment">// 4</span>
+beetle.arrancar(); <span class="hljs-comment">// Arrancando el beetle</span>
+</div></code></pre>
+<h3 id="m%c3%a9todos-est%c3%a1ticos">Métodos estáticos</h3>
+<p>La palabra <code>static</code> sirve para definir métodos <em>estáticos</em> de una clase. Los métodos estáticos pueden ser llamados sin necesidad de crear una instancia de esa clase.</p>
+<p>Generalmente creamos métodos estáticos para hacer utilidades de nuestra aplicación y por defecto, funciones que no requieren acceder al contexto <code>this</code>.</p>
+<pre><code class="language-js"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utilidades</span> </span>{
+  <span class="hljs-keyword">constructor</span>() {}
+  <span class="hljs-keyword">static</span> calcularEdad(fechaNacimiento) {
+    <span class="hljs-keyword">const</span> hoy = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+    <span class="hljs-keyword">let</span> edad = hoy.getFullYear() - fechaNacimiento.getFullYear()
+    <span class="hljs-keyword">if</span> (hoy.getMonth() &lt; fechaNacimiento.getMonth()) {
+      edad--;
+    }
+    <span class="hljs-keyword">if</span> ((fechaNacimiento.getMonth() === hoy.getMonth())
+      &amp;&amp; (hoy.getDate() &lt; fechaNacimiento.getDate())) {
+      edad--;
+    }
+    <span class="hljs-keyword">return</span> edad;
+  }
+}
+<span class="hljs-keyword">let</span> fechaNacimiento = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(<span class="hljs-number">1991</span>, <span class="hljs-number">5</span>, <span class="hljs-number">8</span>);
+<span class="hljs-keyword">let</span> edad = Utilidades.calcularEdad(fechaNacimiento);
+<span class="hljs-built_in">console</span>.log(edad); <span class="hljs-comment">// 28</span>
+</div></code></pre>
+<h2 id="hosting">Hosting</h2>
+<p>Una de las particularidades de JavaScript es lo que se conoce comúnmente como hoisting. Dicha característica consiste en que con independencia de donde esté la declaración de una variable ésta es movida al inicio del ámbito al que pertenece. Es decir, aunque nuestro código sea como el siguiente:</p>
+<pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// undefined</span>
+  <span class="hljs-keyword">var</span> x = <span class="hljs-number">10</span>;
+}
+</div></code></pre>
+<p>Realmente se tratará a todos los efectos como si hubiésemos escrito:</p>
+<pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> x;
+  <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// undefined</span>
+  x = <span class="hljs-number">10</span>;
+}
+</div></code></pre>
+<p>El hoisting muchas veces pasa inadvertido, pero debemos tener cuidado con él. Por ejemplo, supongamos el siguiente código:</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">var</span> x = <span class="hljs-string">'global value'</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// undefined</span>
+  <span class="hljs-keyword">var</span> x = <span class="hljs-string">'local value'</span>;
+  <span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// local value</span>
+}
+foo();
+</div></code></pre>
+<p>Uno podría esperar que se imprimiese primero <code>global value</code> y luego <code>local value</code>, ya que parece que cuando se ejecuta el primer <code>console.log(x)</code> la variable x local todavía no existe, por lo que se imprimiría el valor de la variable x global. Pero no ocurre esto. En su lugar dicho código muestra <code>undefined</code> y luego <code>local value</code>.</p>
+<p>Es importante además recalcar que, a diferencia de otros lenguajes, el código dentro de las llaves de un if o de un for no abre un ámbito nuevo (al menos no cuando usamos var).</p>
+<pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> item = { <span class="hljs-attr">v</span>: <span class="hljs-string">'value'</span> };
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> idx <span class="hljs-keyword">in</span> [<span class="hljs-number">0</span>, <span class="hljs-number">1</span>]) {
+    <span class="hljs-keyword">var</span> item = { <span class="hljs-attr">i</span>: idx };
+    <span class="hljs-built_in">console</span>.log(item); <span class="hljs-comment">// {i: 0} // {i: 1}</span>
+  }
+  <span class="hljs-built_in">console</span>.log(item);
+}
+foo();
+</div></code></pre>
+<p>Este código parece que tenga que imprimir <code>{ i: 0 }, { i: 1 }</code> (al iterar dentro del for) y luego <code>{ v: 'value' }</code> (el valor de la variable item de fuera del for). Pero realmente la declaración de la variable item dentro del for se mueve fuera de este, ya que el bloque for no declara un nuevo ámbito de visibilidad.</p>
+<p>Pero en realidad imprimirá: <code>{i: &quot;0&quot;}  {i: &quot;1&quot;}  {i: &quot;1&quot;}</code></p>
+<h3 id="let--var">Let / var</h3>
+<p>Desde la aparición de <code>let</code> (ES6) podemos definir las variables dentro de un ámbito más restrictivo.</p>
+<p>Veíamos que var restringe su ámbito a la función en la que se encuentra. Si no tiene función será global.</p>
+<p>Sin embargo let restringe su ámbito a las llaves en las que está definido. Ya sea un <code>if</code>, un <code>for</code>, un <code>while</code>, una función...</p>
+<p>Se puede decir que <code>let</code> es más restrictivo, más seguro y al liberar su memoria antes, también es más eficiente.</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">var</span> variableVar = <span class="hljs-string">"Soy un VAR"</span>;
+<span class="hljs-keyword">let</span> variableLet = <span class="hljs-string">"Soy un LET"</span>;
+
+<span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>) {
+  <span class="hljs-keyword">var</span> variableVar = <span class="hljs-string">"Nuevo valor de VAR"</span>;
+  <span class="hljs-keyword">let</span> variableLet = <span class="hljs-string">"Nuevo valor de LET"</span>;
+}
+
+<span class="hljs-built_in">console</span>.log(variableVar); <span class="hljs-comment">// Nuevo valor de VAR</span>
+<span class="hljs-built_in">console</span>.log(variableLet); <span class="hljs-comment">// Soy un LET</span>
+</div></code></pre>
+<h2 id="scope-contexto-y-clousures">Scope, contexto y clousures</h2>
+<p>La implementación del scope y el contexto en JavaScript es una característica única del lenguaje en parte porque es muy flexible. Las funciones pueden ser adaptadas para diversos contextos y el alcance puede ser encapsulado y preservado.</p>
+<p>Estos conceptos se ayudan a desarrollar algunos de los patrones de diseño más potentes que ofrece JavaScript. Sin embargo, esto también es una fuente de errores entre los desarrolladores, y por una buena razón.... porque no es nada sencillo.</p>
+<p>Lo primero que se debe aclarar es que el contexto y el scope no son lo mismo. Muchos desarrolladores a menudo confunden los dos términos.</p>
+<p>Cada invocación a una función tiene un scope/alcance y un contexto asociados. Veamos qué es cada cosa:</p>
+<ul>
+<li>El <strong>scope/alcance</strong> indica las variables a las que tenemos acceso.</li>
+<li>El <strong>contexto</strong> es el valor de la palabra <code>this</code>, lo cual es una referencia al objeto que posee la ejecución actual. El motor Javascript reserva la memoria para variables y funciones y las apila, diferenciadas por contextos.
+Según donde estén éstas dispondrán de un contexto (o ámbito) de uso/aplicación.</li>
+</ul>
+<h3 id="scope">Scope</h3>
+<p>Una variable puede ser definida con un scope global o local. Lo cual define lo accesible que será la variable:</p>
+<ul>
+<li>Cualquier variable definida globalmente podrá ser consultada desde cualquier si+o y cualquier scope.</li>
+<li>Una variable definida de forma local solo exis+rá durante la ejecución de determinado código y será accesible solo en ese momento.</li>
+</ul>
+<p>Desde la salida de ES6 podemos hacer uso de <code>let</code> y <code>const</code>, lo cual nos permite crear variables con un scope aún más reducido. Para ser exactos solo vivirán dentro de las llaves entre las que se definan.</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">if</span>(<span class="hljs-literal">true</span>) {
+  <span class="hljs-keyword">var</span> variableVar = <span class="hljs-string">"HOLA !!"</span>;
+  <span class="hljs-keyword">let</span> variableLet = <span class="hljs-string">"Qué tal??"</span>;
+}
+
+<span class="hljs-built_in">console</span>.log(variableVar); <span class="hljs-comment">// HOLA !!</span>
+<span class="hljs-built_in">console</span>.log(variableLet); <span class="hljs-comment">// ReferenceError: variableLet is not defined</span>
+</div></code></pre>
+<h3 id="contexto">Contexto</h3>
+<p>El contexto determina cómo se invoca una función. Cuando una función es invocada en un objeto, el <code>this</code> será este objeto:</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">var</span> obj = {
+  <span class="hljs-attr">foo</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+};
+obj.foo() === obj; <span class="hljs-comment">// true</span>
+</div></code></pre>
+<p>Este mismo principio se aplica cuando invocamos una función con <code>new</code>, para crear una instancia. Cuando se invoca de esta manera el valor de <code>this</code> dentro de la función será seteado para pertenecer a la instancia.</p>
+<p>Sin embargo si la función es ejecutada sin contexto, <code>this</code> valdrá el objeto global window.</p>
+<pre><code class="language-js"><div><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>{
+  alert(<span class="hljs-keyword">this</span>);
+}
+foo(); <span class="hljs-comment">// window</span>
+<span class="hljs-keyword">new</span> foo(); <span class="hljs-comment">// foo</span>
+</div></code></pre>
+<h3 id="clousures">Clousures</h3>
+<p>Cada vez que definimos variables dentro de una función, estamos creando un scope nuevo. Como ya hemos visto estas variables tendrán su scope restringido a esta función. Esta encapsulación nos permite ocultar y preservar nuestras variables, para que no sean alteradas desde fuera.</p>
+<p>Ejemplo 1:</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">var</span> a = <span class="hljs-number">10</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">miPajarada</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">var</span> a = <span class="hljs-number">23</span>;
+  <span class="hljs-built_in">console</span>.log(a);
+}
+miPajarada(); <span class="hljs-comment">// 23</span>
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// 10</span>
+</div></code></pre>
+<p>Ejemplo 2:</p>
+<pre><code class="language-js"><div><span class="hljs-comment">/** Contexto de ejecución global **/</span>
+<span class="hljs-keyword">var</span> func1 = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">/* Contexto de ejecución para func1 */</span>
+  <span class="hljs-keyword">var</span> func2 = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/* Contexto ejecución para func2 */</span>
+  }
+}
+</div></code></pre>
+<ul>
+<li><strong>Contexto global</strong> Las funciones y variables declaradas aquí, en principio, son accesibles en todas partes.</li>
+<li><strong>Contexto <code>func1</code></strong>. Esta función al ser llamada, genera un contexto de ejecución con ámbito para ella y sus <em>hijos</em> (variables y funciones). No tiene acceso a las variables de sus hijos.</li>
+<li><strong>Contexto <code>func2</code></strong>. Crea otro contexto de ejecución distinto. Tiene acceso a las variables de <code>func1</code>, porque su localización.</li>
+</ul>
+<h4 id="module-pattern">Module pattern</h4>
+<p>La forma más popular de utilizar una closure es el <a href="https://addyosmani.com/resources/essentialjsdesignpatterns/book/#modulepatternjavascript">patrón module</a>. Esto te permite emular variables privadas o públicas (ya en desuso gracias a ES6, se explica en esta documentación a modo de referencia):</p>
+<pre><code class="language-js"><div><span class="hljs-keyword">var</span> <span class="hljs-built_in">module</span> = (<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+  <span class="hljs-comment">// Esta variable es privada</span>
+  <span class="hljs-keyword">var</span> privateProperty = <span class="hljs-string">'Soy una variable privada!!!'</span>;
+  <span class="hljs-keyword">return</span> {
+    <span class="hljs-attr">publicProperty</span>: <span class="hljs-string">'Soy una variable pública'</span>,
+    <span class="hljs-attr">publicMethod</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) </span>{
+      <span class="hljs-comment">// do something</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Método público '</span> + privateProperty);
+    },
+  };
+})();
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">module</span>.privateProperty); <span class="hljs-comment">// undefined</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">module</span>.publicProperty); <span class="hljs-comment">// Soy una variable pública</span>
+<span class="hljs-built_in">module</span>.publicMethod(); <span class="hljs-comment">// Método público Soy una variable privada!!!</span>
+</div></code></pre>
+
+    </body>
+    </html>

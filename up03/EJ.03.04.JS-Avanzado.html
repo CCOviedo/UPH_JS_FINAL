@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>JS Avanzado Ejercicio</title>
+        
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+        
+        <style>
+.task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
+</style>
+        <style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        
+        
+    </head>
+    <body class="vscode-light">
+        <h1 id="js-avanzado-ejercicio">JS Avanzado Ejercicio</h1>
+<ul>
+<li><a href="#js-avanzado-ejercicio">JS Avanzado Ejercicio</a>
+<ul>
+<li><a href="#ejercicios">Ejercicios</a>
+<ul>
+<li><a href="#listado-de-webcams">Listado de Webcams</a></li>
+</ul>
+</li>
+<li><a href="#pr%c3%a1cticas">Prácticas</a>
+<ul>
+<li><a href="#listado-de-pok%c3%a9mons">Listado de pokémons</a>
+<ul>
+<li><a href="#bola-extra">Bola extra</a></li>
+</ul>
+</li>
+<li><a href="#listado-de-fotos--albums">Listado de fotos / albums</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="ejercicios">Ejercicios</h2>
+<h3 id="listado-de-webcams">Listado de Webcams</h3>
+<p>Dispones de la API de webcams del Gempo ofrecida por: <code>https://api.oceandrivers.com:443/v1.0/getWebCams/</code></p>
+<p>Recuperar una lista de webcams y las pinte en pantalla.</p>
+<p>En la respuesta podrás ver que cada webcam genera una URL propia. Haz que al clicar en el nombre de una webcam, se abra una pestaña nueva con el video.</p>
+<h2 id="pr%c3%a1cticas">Prácticas</h2>
+<h3 id="listado-de-pok%c3%a9mons">Listado de pokémons</h3>
+<p>Dispones de la API de pokemons ofrecida por <code>https://pokeapi.co/</code></p>
+<p>Haciendo uso de Fetch, promesas y clases haz una petición que recupere una <a href="https://pokeapi.co/api/v2/pokemon/">lista de pokemons</a> y los pinte en pantalla.</p>
+<p>En la respuesta podrás ver que cada pokemon tiene <a href="https://pokeapi.co/api/v2/pokemon/3/">una URL propia</a>.</p>
+<p>Haz que al clicar en el nombre de un pokemon, te pinte sus detalles en la parte de la derecha. Verás que hay muchos datos... basta con que pintes su imagen, su nombre, su peso y su altura.</p>
+<p><em>NOTA</em>: la imagen está en sprites -&gt; front_default</p>
+<h4 id="bola-extra">Bola extra</h4>
+<p>Haz uso de un sistema de templates para mostrar cada pokémon, como por ejemplo <a href="https://squirrelly.js.org/">Squirrelly</a></p>
+<h3 id="listado-de-fotos--albums">Listado de fotos / albums</h3>
+<p>Dispones de dos peticiones, la primera te devuelve un listado de álbumes: <code>https://jsonplaceholder.typicode.com/albums</code> Y la segunda de te devuelve un listado de fotos:
+<code>https://jsonplaceholder.typicode.com/photos</code></p>
+<p>Haz una vista haciendo uso de Fetch, Promesas y Clases, que te pinte un listado de álbumes. Cuando hagas click en uno de ellos, se deberá hacer una petición a las fotos y pintar en un pequeño muro estilo Instagram, las que correspondan a ese álbum.</p>
+<p>Deberás hacer tú el filtrado dependiendo del parámetro albumId de cada foto.</p>
+
+    </body>
+    </html>
